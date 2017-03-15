@@ -22,3 +22,4 @@ let rec matching t1 t2 =
 let rec string_of_matching = function
   | Bottom -> Utils.bottom_symbol
   | Solution x -> fold_left (fun a b -> if a="" then b else a ^ ";" ^ b) "" @@ map Substitution.string_of_substitution x
+
