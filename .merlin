@@ -1,0 +1,3 @@
+B ./src/_build
+S src
+PKG core
