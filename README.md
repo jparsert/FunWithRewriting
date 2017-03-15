@@ -1,0 +1,2 @@
+# FunWithRewriting
+Term Rewriting stuff
