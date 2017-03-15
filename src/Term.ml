@@ -4,11 +4,8 @@ open Utils
 
 type t =  Var of string | Fun of (string * t list)
 
-let rec string_of_arglist str = function
-  | [] -> ""
-  | x::[] -> (str x)
-  | x::y::[] -> (str x) ^","^ (str y)
-  | x::y::xs -> (str x) ^","^ (str y) ^ ","^(string_of_arglist str xs)
+let rec string_of_arglist str lst=
+  fold_left (fun a b -> if a="" then b else a ^ "," ^ b) "" @@ map str lst
 
 let rec string_of_term = function
   | Var v -> v
