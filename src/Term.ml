@@ -2,10 +2,14 @@ open String
 open List
 open Utils
 
-type t =  Var of string | Fun of (string * t list)
+type variable = string
+
+type t =  Var of variable | Fun of (string * t list)
 
 let rec string_of_arglist str lst=
   fold_left (fun a b -> if a="" then b else a ^ "," ^ b) "" @@ map str lst
+
+let  string_of_variable x = x
 
 let rec string_of_term = function
   | Var v -> v

@@ -1,6 +1,11 @@
 
+(* Variable type of term *)
+type variable = string
+
 (* This ADT expresses a Term*)
-type t = Var of string | Fun of (string * t list)
+type t = Var of variable | Fun of (string * t list)
+
+val string_of_variable : variable -> string
 
 (* To_string function of term*)
 val string_of_term : t -> string
