@@ -17,3 +17,9 @@ let _ = let s = [("x", Var "a");("y", Fun ("f",[Var "x"]))] in
   print_string @@ (string_of_substitution_list s)^"\n";
   print_string @@ (string_of_term t)^"\n";
   print_string @@ (Term.string_of_term subst)^"\n"
+(*
+let _ =
+  let ter = Fun ("f" , [Var "x"]) in
+  let trs = [(Var "x" , Fun ("g" , []))] in
+  print_string @@ (Term.string_of_term @@ Computation.compute ter trs) ^"\n"
+*)

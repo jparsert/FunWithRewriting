@@ -45,3 +45,8 @@ let rec norm t =
 let rec height = function
   | Var v -> 1
   | Fun (f, args) -> 1 + (max_of_int_list @@ map height args)
+
+let rec same_term t1 t2 = match (t1, t2) with
+  | (Var v1, Var v2) when v1=v2 -> true
+  | (Fun (f1,args1) , Fun (f2, args2)) when f1=f2 -> (List.fold_left (&&) true @@ List.map2 same_term  args1 args2)
+  | _ -> false

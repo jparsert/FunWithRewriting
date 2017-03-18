@@ -24,3 +24,6 @@ val size : t -> int
 
 (* returns the norm of a term *)
 val norm : t -> int
+
+(* checks for structural equivalence *)
+val same_term : t -> t -> bool
