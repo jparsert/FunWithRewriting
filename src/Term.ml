@@ -1,6 +1,7 @@
 open String
 open List
 open Utils
+open Str
 
 type variable = string
 
@@ -14,6 +15,7 @@ let  string_of_variable x = x
 let rec string_of_term = function
   | Var v -> v
   | Fun (f, []) -> f
+  | Fun (f, x::y::[]) when Str.string_match (Utils.infix_symbols_regexp) f 0 -> "("^ string_of_term x ^ f ^ string_of_term y ^ ")"
   | Fun (f,args) -> f^ "(" ^ (string_of_arglist (string_of_term) args) ^ ")"
 
 let rec var = function

@@ -1,2 +1,2 @@
 all:
-	ocamlbuild Main.native
+	ocamlbuild -package str  Main.native
