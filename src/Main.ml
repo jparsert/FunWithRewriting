@@ -19,7 +19,6 @@ let _ =
   print_string @@ (Matching.string_of_matching @@  Matching.matching t1 t2)^"\n"
 
 let _ =
-  let tst = Multiset.empty in
   let s = [("x", Var "a");("y", Fun ("f",[Var "x"]))] in
   let t = Fun ("g" ,[ Var "a" ; Var "x" ; Var "y"]) in
   let subst = apply_substitutions s t in
@@ -27,6 +26,8 @@ let _ =
   print_string @@ (string_of_term t)^"\n";
   print_string @@ (Term.string_of_term subst)^"\n"
 
+let mp = Multiset.empty
+let y = Multiset.get "this should be zero" mp
 (*
 let _ =
   let ter = Fun ("f" , [Var "x"]) in

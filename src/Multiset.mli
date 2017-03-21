@@ -1,4 +1,6 @@
 
 module M : Map.S with type key = string
 
-val get: string -> int M.t -> int
+include module type of M
+  
+val get: string -> int t -> int

@@ -8,6 +8,8 @@ end*)
 
 module M = Map.Make (String)
 
+include M
+
 let get key m =
-    try (M.find key m) with
-    | Not_found -> 0
+  try (M.find key m) with
+  | Not_found -> 0
