@@ -1,9 +1,5 @@
 open Term
-open Multiset
-open Rewriting
-open Utils
 open Substitution
-open Matching
 
 let _ = print_string @@ (Term.string_of_term @@ Fun ("f" , [Var "x" ; Var "y"]))^"\n"
 let _ = print_string @@ (Matching.string_of_matching @@ Matching.matching (Var "A") (Var "B"))^"\n"
@@ -23,6 +19,7 @@ let _ =
   print_string @@ (Matching.string_of_matching @@  Matching.matching t1 t2)^"\n"
 
 let _ =
+  let tst = Multiset.empty in
   let s = [("x", Var "a");("y", Fun ("f",[Var "x"]))] in
   let t = Fun ("g" ,[ Var "a" ; Var "x" ; Var "y"]) in
   let subst = apply_substitutions s t in

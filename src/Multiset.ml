@@ -1,12 +1,12 @@
-module StringMap = struct
+(*module StringMap = struct
 
   type t = string
 
   let compare = String.compare
 
-end
+end*)
 
-module M = Map.Make (StringMap)
+module M = Map.Make (String)
 
 let get key m =
     try (M.find key m) with
