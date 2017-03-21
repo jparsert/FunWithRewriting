@@ -1,4 +1,5 @@
 open Term
+open Multiset
 open Rewriting
 open Utils
 open Substitution
