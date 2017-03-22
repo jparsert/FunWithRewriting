@@ -1,2 +1,2 @@
 all:
-	ocamlbuild -package str  Main.native
+	ocamlbuild -use-ocamlfind -package batteries -package str  Main.native
