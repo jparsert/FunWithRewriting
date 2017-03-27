@@ -1,18 +1,44 @@
 open Batteries
 open Map
 
-(*module StringMap = struct
-
-  type t = string
-
-  let compare = String.compare
-
-end*)
-module type Comparable = sig
+module type Comparable =
+sig
   type t
 
   val compare : t -> t -> int
+
 end
+
+
+(*
+module type MS =
+sig
+  type t
+
+  val empty : 'a Map.t
+
+  val get : t -> (t , int) Map.t -> int
+
+  val remove : t -> (t , int) Map.t ->  (t , 'b) Map.t
+
+  val insert : t -> (t , 'b) Map.t ->  (t , 'b) Map.t
+
+  val fold : t -> (t , 'b) Map.t ->  (t , 'b) Map.t
+
+  val is_empty : (t , 'b) Map.t ->  bool
+
+  val to_list :  (t , 'b) Map.t -> t list
+
+  val sum : (t , 'b) Map.t ->  (t , 'b) Map.t ->  (t , 'b) Map.t
+
+  val difference : (t , 'b) Map.t ->  (t , 'b) Map.t ->  (t , 'b) Map.t
+
+  val from_list : t list ->  (t , 'b) Map.t
+
+  val insert_list : t list ->  (t , 'b) Map.t ->  (t , 'b) Map.t
+end
+*)
+
 
 module Multiset(T:Comparable)= struct
 

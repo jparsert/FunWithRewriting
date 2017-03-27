@@ -30,6 +30,7 @@ let _ =
 module Mset = Multiset(String)
 
 let mp = Mset.empty
+
 let mp = Mset.insert "a" mp
 let _ = print_int @@ Mset.get "a" mp
 let mp = Mset.insert "a" mp
