@@ -1,5 +1,5 @@
 open Batteries
-
+open Map
 
 (*module StringMap = struct
 
@@ -8,50 +8,59 @@ open Batteries
   let compare = String.compare
 
 end*)
+module type Comparable = sig
+  type t
 
-module M = Map.Make (String)
+  val compare : t -> t -> int
+end
 
-include M
+module Multiset(T:Comparable)= struct
 
-let empty = M.empty
+  module M = Map.Make(T)
 
-let get key m =
-  try (M.find key m) with
-  | Not_found -> 0
+  include M
 
-let remove key m = M.remove key m
+  let empty = M.empty
 
-let insert e set = M.add e ((get e set)+1) set
+  let get key m =
+    try (M.find key m) with
+    | Not_found -> 0
 
-let fold f set start = M.fold f set start
+  let remove key m = M.remove key m
 
-let is_empty set = M.is_empty set
+  let insert e set = M.add e ((get e set)+1) set
 
-let to_list set = M.fold (fun a b c-> (List.make b a) @c) set []
+  let fold f set start = M.fold f set start
 
-let sum set1 set2 =
-  let aux key x1 x2 = match x1 ,x2 with
-    | Some x , Some y -> Some (x + y)
-    | Some x , None -> Some x
-    | None , Some x -> Some x
-    | _ -> None
-  in
-  M.merge (aux) set1 set2
+  let is_empty set = M.is_empty set
 
-let difference set1 set2 =
+  let to_list set = M.fold (fun a b c-> (List.make b a) @c) set []
+
+  let sum set1 set2 =
+    let aux key x1 x2 = match x1 ,x2 with
+      | Some x , Some y -> Some (x + y)
+      | Some x , None -> Some x
+      | None , Some x -> Some x
+      | _ -> None
+    in
+    M.merge (aux) set1 set2
+
+  let difference set1 set2 =
     let aux key x1 x2 = match x1 , x2 with
-    | Some x , Some y -> Some  (max (x - y) 0)
-    | Some x , None -> Some x
-    | None , Some x -> None
-    | _ -> None
-  in
-  M.merge (aux) set1 set2
+      | Some x , Some y -> Some  (max (x - y) 0)
+      | Some x , None -> Some x
+      | None , Some x -> None
+      | _ -> None
+    in
+    M.merge (aux) set1 set2
 
-let from_list lst =
-  let rec aux accum = function
-    | [] -> accum
-    | x :: xs -> aux (insert x accum) xs
-  in
-  aux empty lst
+  let from_list lst =
+    let rec aux accum = function
+      | [] -> accum
+      | x :: xs -> aux (insert x accum) xs
+    in
+    aux empty lst
 
-let insert_list lst set = sum (from_list lst) set
+  let insert_list lst set = sum (from_list lst) set
+
+end
