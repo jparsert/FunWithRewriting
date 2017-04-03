@@ -5,6 +5,8 @@ type variable = string
 (* This ADT expresses a Term*)
 type t = Var of variable | Fun of (string * t list)
 
+type position = int list
+
 val string_of_variable : variable -> string
 
 (* To_string function of term*)
@@ -27,3 +29,13 @@ val norm : t -> int
 
 (* checks for structural equivalence *)
 val same_term : t -> t -> bool
+
+val positions : t -> int list list
+
+val get_term_at : t-> position -> t
+
+val string_of_position : position -> string
+
+val string_of_positions : position list -> string
+
+val equals : t -> t -> bool

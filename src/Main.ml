@@ -1,7 +1,9 @@
 open Term
 open Substitution
 open Multiset
-    
+open List
+open Utils
+
 let _ = print_string @@ (Term.string_of_term @@ Fun ("f" , [Var "x" ; Var "y"]))^"\n"
 let _ = print_string @@ (Matching.string_of_matching @@ Matching.matching (Var "A") (Var "B"))^"\n"
 let _ = print_string @@ (Matching.string_of_matching @@ Matching.matching (Var "A") (Var "B")) ^"\n"
@@ -12,7 +14,10 @@ let _ = print_string @@ (Matching.string_of_matching @@ Matching.matching (Fun (
 let _ =
   let t1 = Fun ("+" , [Var "x" ; Fun ("s" , [Fun ("+",[Var "y" ; Var "z"])])]) in
   let t2 = Fun ("+" ,[Fun ("s", [Var "y"]) ; Fun ("s", [Fun ("+" , [Fun ("+", [Var "x";Fun ("s", [Fun ("0",[])])]) ; Var "z"])])]) in
-  print_string @@ (Matching.string_of_matching @@  Matching.matching t1 t2)^"\n"
+  print_string @@ (Matching.string_of_matching @@  Matching.matching t1 t2)^"\n";
+  print_string @@ string_of_positions @@ (positions t1);
+  print_string @@ string_of_term t1^"\n";
+  print_string @@ (string_of_term (get_term_at t1 [2;1]))^"\n"
 
 let _ =
   let t1 = Fun ("*" , [Fun ("-", [Var "x"]) ; Fun ("*" , [Var "x" ; Var "y"])]) in

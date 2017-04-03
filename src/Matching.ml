@@ -1,30 +1,27 @@
 open Term
 open List
-open Rewriting
 open Utils
-open Substitution
 
-type result = Bottom | Solution of Substitution.t list
-
+(* Esigma . s sigma = t*)
 let rec matching s t =
   let rec sol_union acc = function
-    | [] -> Solution acc
-    | (Solution x)::xs -> sol_union(x@acc) xs
-    | Bottom::xs -> Bottom
+    | [] -> Some acc
+    | (Some x)::xs -> sol_union(x@acc) xs
+    | None::xs -> None
   in
   let rec unpack_option acc = function
-    | None -> Bottom
+    | None -> None
     | Some x -> sol_union [] x
   in
   match (s, t) with
-  | (Var v1, Var v2) -> Solution [(v1, Var v2)]
-  | (Var v, Fun f) -> Solution [(v, Fun f)]
-  | (Fun f, Var v) -> Bottom
-  | (Fun (f, _) , Fun (g,_)) when f<>g -> Bottom
+  | (Var v1, Var v2) -> Some [(v1, Var v2)]
+  | (Var v, Fun f) -> Some [(v, Fun f)]
+  | (Fun f, Var v) -> None
+  | (Fun (f, _) , Fun (g,_)) when f<>g -> None
   | (Fun (f, args1) , Fun(g, args2)) -> unpack_option []
                                           (try Some (List.map2 (matching) args1 args2) with
                                           _ -> None)
 
 let rec string_of_matching = function
-  | Bottom -> Utils.bottom_symbol
-  | Solution x -> Substitution.string_of_substitution_list x
+  | None -> Utils.bottom_symbol
+  | Some x -> Substitution.string_of_substitution_list x
