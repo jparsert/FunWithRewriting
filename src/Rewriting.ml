@@ -14,7 +14,9 @@ let root_rewrite (term:Term.t) ((rm,tl):rule) =
   match Matching.matching rm term with
   | None -> term
   | Some s -> Substitution.apply_substitutions s tl
-                
+open Str
+
+
 (*
 let rec rewrite_ (term:Term.t) (sys:system) =
   match sys with
